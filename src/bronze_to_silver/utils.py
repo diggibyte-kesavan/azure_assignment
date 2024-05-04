@@ -3,7 +3,7 @@
 # MAGIC Mount Bronze Blob Storage using dbutils
 
 # COMMAND ----------
-
+'''
 storage_account_name = "storageassignmentkesavan"
 container_name = "bronze"
 mount_point = "/mnt/Bronze"
@@ -16,6 +16,7 @@ dbutils.fs.mount(
     f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
   }
 )
+
 
 # COMMAND ----------
 
@@ -56,7 +57,7 @@ dbutils.fs.mount(
     f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
   }
 )
-
+'''
 # COMMAND ----------
 
 from pyspark.sql.functions import udf
