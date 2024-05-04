@@ -7,7 +7,7 @@
 storage_account_name = "storageassignmentkesavan"
 container_name = "bronze"
 mount_point = "/mnt/Bronze"
-# AccessKey = 'kcfzgrlAXcVj0H0Qvcn08mNBKGO05SQ+vuxeKLf90wpBbb07wBLUSBH14NtlBBfYXRfya/x7oZ1q+ASttT8f1w=='
+AccessKey = 'kcfzgrlAXcVj0H0Qvcn08mNBKGO05SQ+vuxeKLf90wpBbb07wBLUSBH14NtlBBfYXRfya/x7oZ1q+ASttT8f1w=='
 
 dbutils.fs.mount(
   source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
