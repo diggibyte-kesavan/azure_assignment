@@ -1,61 +1,50 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC Mount Bronze Blob Storage using dbutils
+# MAGIC create a function for mounting adls and databricks notebooks
 
 # COMMAND ----------
 
-storage_account_name = "storageassignmentkesavan"
-container_name = "bronze"
-mount_point = "/mnt/Bronze"
-AccessKey = 'kcfzgrlAXcVj0H0Qvcn08mNBKGO05SQ+vuxeKLf90wpBbb07wBLUSBH14NtlBBfYXRfya/x7oZ1q+ASttT8f1w=='
-
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)
+def mount_blob_storage(storage_account_name, container_name, mount_point, access_key):
+    dbutils.fs.mount(
+        source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
+        mount_point=mount_point,
+        extra_configs={
+            f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": access_key
+        }
+    )
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC Mount Silver Blob Storage using dbutils
+# MAGIC create the text widgets and pass the dynamic parameters
 
 # COMMAND ----------
 
-storage_account_name = "adfassignstorageacc"
-container_name = "silver"
-mount_point = "/mnt/Silver"
-AccessKey = dbutils.secrets.get('BlobBronzeAccessKey', 'BronzeAccessKey')
-
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)
+dbutils.widgets.text("storage_account_name","storageassignmentkesavan","Storage Account Name")
+dbutils.widgets.text("container_name","silver","Container Name")
+dbutils.widgets.text("mount_point", "/mnt/silver", "Mount Point")
+dbutils.widgets.text("access_key", "kcfzgrlAXcVj0H0Qvcn08mNBKGO05SQ+vuxeKLf90wpBbb07wBLUSBH14NtlBBfYXRfya/x7oZ1q+ASttT8f1w==", "Access Key")
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC Mount Gold Blob Storage using dbutils
+# MAGIC Get and store the widgets into variables
 
 # COMMAND ----------
 
-storage_account_name = "adfassignstorageacc"
-container_name = "gold"
-mount_point = "/mnt/gold"
-AccessKey = dbutils.secrets.get('BlobBronzeAccessKey', 'BronzeAccessKey')
+storage_account_name = dbutils.widgets.get("storage_account_name")
+container_name = dbutils.widgets.get("container_name")
+mount_point = dbutils.widgets.get("mount_point")
+access_key = dbutils.widgets.get("access_key")
 
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC Call the funtion and pass the variable
+
+# COMMAND ----------
+
+mount_blob_storage(storage_account_name, container_name, mount_point, access_key)
 
 # COMMAND ----------
 

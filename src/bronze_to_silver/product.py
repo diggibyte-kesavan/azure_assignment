@@ -47,7 +47,7 @@ sub_category_df = renamed_product_df.withColumn("sub_category", when(col('catego
 
 # COMMAND ----------
 
-writeTo = f'dbfs:/mnt/Silver/sales_view/product'
+writeTo = f'dbfs:/mnt/silver/sales_view/product'
 write_delta_upsert(sub_category_df, writeTo)
 
 # COMMAND ----------

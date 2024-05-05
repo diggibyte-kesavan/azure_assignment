@@ -60,5 +60,5 @@ formated_date_df.display()
 
 # COMMAND ----------
 
-writeTo = f'dbfs:/mnt/Silver/sales_view/store'
+writeTo = f'dbfs:/mnt/silver/sales_view/store'
 write_delta_upsert(formated_date_df, writeTo)

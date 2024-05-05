@@ -13,8 +13,8 @@
 
 # COMMAND ----------
 
-product_path = 'dbfs:/mnt/Silver/sales_view/product'
-store_path = 'dbfs:/mnt/Silver/sales_view/store'
+product_path = 'dbfs:/mnt/silver/sales_view/product'
+store_path = 'dbfs:/mnt/silver/sales_view/store'
 
 # COMMAND ----------
 
@@ -45,7 +45,7 @@ product_store_df = merged_product_store_df.select(store_df.store_id,"store_name"
 
 # COMMAND ----------
 
-customer_sales_path = "dbfs:/mnt/Silver/sales_view/sales"
+customer_sales_path = "dbfs:/mnt/silver/sales_view/customer_sales"
 customer_sales_df = read_delta_file(customer_sales_path)
 customer_sales_df.display()
 
